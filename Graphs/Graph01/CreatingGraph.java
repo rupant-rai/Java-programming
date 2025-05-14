@@ -1,6 +1,7 @@
+
 import java.util.*;
 
-public class DFSCC {
+public class CreatingGraph {
     static class Edge{
         int src;
         int dst;
@@ -23,11 +24,17 @@ public class DFSCC {
         graph[4].add( new Edge(4,2));
     }
 
-    public static void dfs(ArrayList<Edge> graph[]){
-        
-    }
-
-    public static void dfsUtil(ArrayList<Edge> graph[], int curr, boolean vis[]){
-
+    public static void main( String args[]){
+        int V= 5;
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge> graph[]= new ArrayList[V];
+        for ( int i=0; i< V; i++){
+            graph[i]= new ArrayList<>();
+        }
+        createGraph(graph);
+        for ( int i=0; i<graph[1].size(); i++){
+            Edge e= graph[1].get(i);
+            System.out.println(e.dst);
+        }
     }
 }

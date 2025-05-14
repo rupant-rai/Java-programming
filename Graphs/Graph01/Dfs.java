@@ -1,6 +1,7 @@
-import java.util.*;
 
-public class HasPath {
+import java.util.ArrayList;
+
+public class Dfs {
     static class Edge{
         int src;
         int dst;
@@ -23,26 +24,27 @@ public class HasPath {
         graph[4].add( new Edge(4,2));
     }
 
-    public static boolean HassPath(ArrayList<Edge> graph[], int src, int dest, boolean vis[]){
-        if( src== dest) return true;
-        vis[src]= true;
-        for ( int i=0; i<graph[src].size(); i++){
-            Edge e= graph[src].get(i);
-            if(!vis[e.dst] && HassPath(graph, e.dst, dest, vis)){
-                return true;
+    public static void dfs(ArrayList<Edge> graph[], int curr, boolean vis[]){
+        System.out.println(curr+" ");
+        vis[curr]= true;
+        //for neighbours
+        for ( int i=0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+            if(!vis[e.dst]){
+                dfs(graph, e.dst, vis);
             }
+
         }
-        return false;
     }
 
-    public static void main(String args[]){
+    public static void main( String args[]){
         int V= 5;
         @SuppressWarnings("unchecked")
-        ArrayList<Edge> graph[]= new ArrayList[V];
-        for ( int i=0; i<V; i++){
+        ArrayList<Edge>[] graph= new ArrayList[V];
+        for ( int i=0; i< graph.length; i++){
             graph[i]= new ArrayList<>();
         }
         createGraph(graph);
-        System.out.println(HassPath(graph, 0, 4, new boolean[V]));
+        dfs(graph, 0, new boolean[V]);
     }
 }

@@ -1,11 +1,12 @@
+
 import java.util.*;
 
-public class BFSCC {
+public class DFSCC {
     static class Edge{
         int src;
-        int dst;
+        int dest;
         public Edge(int s, int d){
-            this.dst= d;
+            this.dest= d;
             this.src= s;
         }
     }
@@ -23,39 +24,37 @@ public class BFSCC {
         graph[4].add( new Edge(4,2));
     }
 
-    public static void bfs(ArrayList<Edge> graph[]){
+    public static void dfs(ArrayList<Edge> graph[]){
         boolean vis[]= new boolean[graph.length];
-        for ( int i=0; i< graph.length; i++){
+        for (int i=0; i<graph.length; i++){
             if(!vis[i]){
-                bfsUtil(graph, vis);
+                dfsUtil(graph,i,vis);
             }
         }
     }
 
-    public static void bfsUtil( ArrayList<Edge> graph[], boolean vis[]){
-        Queue<Integer> q= new LinkedList<>();
-        q.add(0);
-        while(!q.isEmpty()){
-            int curr= q.remove();
-            if( !vis[curr]){
-                System.out.println(curr+ " ");
-                vis[curr]= true;
-                for ( int i=0; i< graph[curr].size(); i++){
-                    Edge e= graph[curr].get(i);
-                    q.add(e.dst);// adding the neighbour
-                }
+    public static void dfsUtil(ArrayList<Edge> graph[], int curr, boolean vis[]){
+        //visit 
+        System.out.println(curr+" ");
+        vis[curr]= true;
+        //for neighbours
+        for ( int i=0; i<graph[curr].size(); i++){
+            Edge e= graph[curr].get(i);
+            if( !vis[e.dest]){
+                dfsUtil(graph, e.dest, vis);
             }
         }
     }
 
     public static void main( String args[]){
-        int V= 5;
+        int v=5;
+        
         @SuppressWarnings("unchecked")
-        ArrayList<Edge> graph[]= new ArrayList[V];
-        for ( int i=0; i< graph.length; i++){
+        ArrayList<Edge> graph[]= new ArrayList[v];
+        for ( int  i=0; i<graph.length; i++){
             graph[i]= new ArrayList<>();
         }
         createGraph(graph);
-        bfs(graph);
+        dfs(graph);
     }
 }

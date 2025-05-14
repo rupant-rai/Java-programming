@@ -1,6 +1,7 @@
+
 import java.util.*;
 
-public class CreatingGraph {
+public class HasPath {
     static class Edge{
         int src;
         int dst;
@@ -23,17 +24,26 @@ public class CreatingGraph {
         graph[4].add( new Edge(4,2));
     }
 
-    public static void main( String args[]){
+    public static boolean HassPath(ArrayList<Edge> graph[], int src, int dest, boolean vis[]){
+        if( src== dest) return true;
+        vis[src]= true;
+        for ( int i=0; i<graph[src].size(); i++){
+            Edge e= graph[src].get(i);
+            if(!vis[e.dst] && HassPath(graph, e.dst, dest, vis)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String args[]){
         int V= 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge> graph[]= new ArrayList[V];
-        for ( int i=0; i< V; i++){
+        for ( int i=0; i<V; i++){
             graph[i]= new ArrayList<>();
         }
         createGraph(graph);
-        for ( int i=0; i<graph[1].size(); i++){
-            Edge e= graph[1].get(i);
-            System.out.println(e.dst);
-        }
+        System.out.println(HassPath(graph, 0, 4, new boolean[V]));
     }
 }
