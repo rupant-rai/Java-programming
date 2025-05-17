@@ -89,9 +89,6 @@ public class sort1 {
                 count[i]--;
             }
         }
-
-
-
     }
 
 
