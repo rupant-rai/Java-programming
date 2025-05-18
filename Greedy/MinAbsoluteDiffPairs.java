@@ -1,8 +1,7 @@
+
 import java.util.*;
 
 public class MinAbsoluteDiffPairs{
-
-
     public static void main( String args[]){
         int a[]= {1,3,2};
         int b[]= {2,3,1};

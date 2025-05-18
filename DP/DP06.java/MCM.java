@@ -40,6 +40,42 @@ public class MCM {
 
         return dp[i][j]= ans;
     }
+
+
+    public static int mcmTab( int arr[]){
+        int n= arr.length;
+        int dp[][]= new int[n][n];
+
+        // initialization
+
+        for ( int i=0; i<n; i++){
+            dp[i][i]=0;// if i==j then cost =0;
+        }
+
+        // filling the table from bottom up approach or small to large problem
+        // we will start from len 2 because for len 0 and 1 mean either single matrix multiplication or zero matrix
+        // and in both the cases we have the cost =0.
+
+        for ( int len=2;len<=n-1; len++){
+            //for row
+            for( int i=1; i<=n-len; i++){
+                // for col
+                int j= i+len-1;
+                dp[i][j]= Integer.MAX_VALUE;
+                //calculate the minimum cost as we have done in the memoization
+                for ( int k=i; k<=j-1; k++){
+                    int cost1= dp[i][k];
+                    int cost2= dp[k+1][j];
+                    int cost3= arr[i-1]* arr[k]* arr[j];
+
+                    dp[i][j]= Math.min(dp[i][j], cost1+cost2+cost3);
+                }
+            }
+        }
+        print(dp);
+        return dp[1][n-1];
+
+    }
     public static void main( String args[]){
         Scanner sc= new Scanner(System.in);
         
@@ -62,5 +98,16 @@ public class MCM {
         
         System.out.println(mcmRec(arr,1,n-1));
         System.out.println(mcmMemo(arr, 1, n-1, dp));
+        System.out.println(mcmTab(arr));
+    }
+
+    public static void print(int dp[][]){
+        for ( int i=0; i<dp.length; i++){
+            for ( int j=0; j<dp[0].length; j++){
+                System.out.print(dp[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
