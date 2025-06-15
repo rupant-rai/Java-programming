@@ -29,11 +29,11 @@ public class CycleDetection {
         graph[4].add(new Edge(4, 3));
     }
 
-    public static boolean cycDet(ArrayList<Edge> graph[]){
-        boolean vis[]= new boolean [graph.length];
-        for ( int i=0; i< graph.length; i++){
+    public static boolean isCycle(ArrayList<Edge> graph[]){
+        boolean vis[]= new boolean[graph.length];
+        for( int i=0; i< graph.length; i++){
             if(!vis[i]){
-                if(cycDetUtil(graph, vis, i, -1 )){
+                if(isCycle2(graph,vis,i, -1)){
                     return true;
                 }
             }
@@ -41,25 +41,17 @@ public class CycleDetection {
         return false;
     }
 
-    public static boolean cycDetUtil(ArrayList<Edge> graph[], boolean vis[], int curr, int par ){
+    public static boolean isCycle2(ArrayList<Edge> graph[], boolean vis[], int curr, int par){
         vis[curr]= true;
-        //traversing the edges to find the edges and its neighbours
         for ( int i=0; i< graph[curr].size(); i++){
             Edge e= graph[curr].get(i);
-
-            //case 3: !vis[neigh] 
             if(!vis[e.dest]){
-                if(cycDetUtil(graph, vis, e.dest, curr)){
+                if(isCycle2(graph, vis, e.dest, curr)){
                     return true;
                 }
             }
-
-            //case 2: vis[neigh] and also the neigh is par -> continue
-
-            //case 3: vis[neigh ] and neigh is not parent
-
-            else if(vis[curr] && e.dest!= par){
-                return true;// as it is only possibel when there is cycle.
+            if(vis[e.dest] && e.dest!= par){
+                return true;
             }
         }
         return false;
@@ -70,6 +62,6 @@ public class CycleDetection {
         @SuppressWarnings("unchecked")
         ArrayList<Edge> graph[]= new ArrayList[V];
         createGraph(graph);
-        System.out.println(cycDet(graph));
+        System.out.println(isCycle(graph));
     }
 }
