@@ -1,9 +1,9 @@
 package Arrays;
 public class arrays1 {
 
-    public static void update( int marks[],int fixed){
-        fixed=20;
-        for(int i=0; i<marks.length; i++){
+    public static void update (int marks[], int fixed) {
+        fixed = 20;
+        for(int i = 0; i < marks. length; i++){
             marks[i]=marks[i]+1;
         }
     }
